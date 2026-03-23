@@ -1,12 +1,8 @@
 import { useState, useRef, useEffect } from "react";
-
-// 🔑 Indsæt din Anthropic API-nøgle her:
-<<<<<<< HEAD
 import { useState, useRef, useEffect } from "react";
 
-// 🔑 API-nøgle hentes fra environment (IKKE hardcoded!)
+// 🔑 API-nøgle fra env (IKKE hardcoded!)
 const ANTHROPIC_API_KEY = import.meta.env.VITE_ANTHROPIC_API_KEY;
->>>>>>> 7617cc1 (final fix env)
 
 const ACTIVITY = {
   "Stillesiddende": 1.2, "Let aktiv": 1.375,

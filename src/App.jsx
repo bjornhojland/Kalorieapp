@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 
 // 🔑 Indsæt din Anthropic API-nøgle her:
-const ANTHROPIC_API_KEY = "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";
+const ANTHROPIC_API_KEY = "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";
 
 const ACTIVITY = {
   "Stillesiddende": 1.2, "Let aktiv": 1.375,

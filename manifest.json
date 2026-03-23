@@ -1,0 +1,10 @@
+{
+  "name": "Min Kaloriedagbog",
+  "short_name": "Kalorier",
+  "description": "Personlig kalorietracker med AI-madanalyse",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0d1117",
+  "theme_color": "#0d1117",
+  "orientation": "portrait"
+}

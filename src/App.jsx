@@ -1,7 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 
 // 🔑 Indsæt din Anthropic API-nøgle her:
-const ANTHROPIC_API_KEY = "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";
+<<<<<<< HEAD
+import { useState, useRef, useEffect } from "react";
+
+// 🔑 API-nøgle hentes fra environment (IKKE hardcoded!)
+const ANTHROPIC_API_KEY = import.meta.env.VITE_ANTHROPIC_API_KEY;
+>>>>>>> 7617cc1 (final fix env)
 
 const ACTIVITY = {
   "Stillesiddende": 1.2, "Let aktiv": 1.375,

@@ -129,7 +129,7 @@ export default function App() {
     if (!imageData) return;
     setAnalyzing(true); setError(null);
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
+      const res = await fetch("/api/analyze", {
         method: "POST", headers: { "Content-Type": "application/json", "x-api-key": ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-access": "true" },
         body: JSON.stringify({
           model: "claude-sonnet-4-20250514", max_tokens: 1000,
@@ -140,13 +140,25 @@ export default function App() {
         })
       });
       const data = await res.json();
-      const text = data.content.map(b => b.text || "").join("");
-      setAnalysisResult(JSON.parse(text.replace(/```json|```/g, "").trim()));
-      setCorrection("");
-    } catch { setError("Kunne ikke analysere billedet. Prøv igen."); }
-    finally { setAnalyzing(false); }
-  };
+     const text = data.content.map(b => b.text || "").join("");
 
+try {
+  const clean = text
+    .replace(/```json|```/g, "")
+    .trim()
+    .match(/\{[\s\S]*\}/)?.[0];
+
+  const parsed = JSON.parse(clean);
+  setAnalysisResult(parsed);
+  setCorrection("");
+
+} catch (e) {
+  console.error("Parse error:", text);
+  setError("Kunne ikke læse svaret fra AI");
+
+} finally {
+  setAnalyzing(false);
+}
   const confirmEntry = (result, img) => {
     if (!result) return;
     const entry = { id: Date.now(), time: new Date().toLocaleTimeString("da-DK", { hour: "2-digit", minute: "2-digit" }), name: result.name, calories: result.calories, protein: result.protein || 0, carbs: result.carbs || 0, fat: result.fat || 0, description: result.description, image: img || null };
@@ -160,7 +172,7 @@ export default function App() {
     if (!correction.trim() || !analysisResult) return;
     setCorrecting(true); setError(null);
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
+      const res = await fetch("/api/analyze", {
         method: "POST", headers: { "Content-Type": "application/json", "x-api-key": ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-access": "true" },
         body: JSON.stringify({
           model: "claude-sonnet-4-20250514", max_tokens: 1000,
